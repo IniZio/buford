@@ -7,27 +7,13 @@ import (
 	"flag"
 	"io/ioutil"
 	"log"
-	"net/http"
 	"sync"
 	"time"
-
-	"golang.org/x/net/http2"
 
 	"github.com/RobotsAndPencils/buford/push"
 
 	"github.com/dgrijalva/jwt-go"
 )
-
-func NewClient() (*http.Client, error) {
-	config := &tls.Config{}
-	transport := &http.Transport{TLSClientConfig: config}
-
-	if err := http2.ConfigureTransport(transport); err != nil {
-		return nil, err
-	}
-
-	return &http.Client{Transport: transport}, nil
-}
 
 func main() {
 	var deviceToken, filename, keyID, teamID, bundleID string
@@ -52,7 +38,7 @@ func main() {
 	privateKey, err := x509.ParsePKCS8PrivateKey(block.Bytes)
 	exitOnError(err)
 
-	client, err := NewClient()
+	client, err := push.NewTLSClient(&tls.Config{})
 	exitOnError(err)
 
 	service := push.NewService(client, push.Development)
@@ -91,7 +77,7 @@ func main() {
 	b := []byte(`{"aps":{"alert":"Hello HTTP/2"}}`)
 
 	// synchronous send to prime stream
-	id, err := service.Push(deviceToken, h, []byte(`{"aps":{"alert":"Hello HTTP/2"}}`))
+	id, err := service.Push(deviceToken, h, b)
 	exitOnError(err)
 	log.Println("apns-id:", id)
 
