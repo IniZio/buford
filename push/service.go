@@ -46,8 +46,13 @@ func NewClient(cert tls.Certificate) (*http.Client, error) {
 		Certificates: []tls.Certificate{cert},
 	}
 	config.BuildNameToCertificate()
-	transport := &http.Transport{TLSClientConfig: config}
 
+	return NewTLSClient(config)
+}
+
+// NewTLSClient sets up an HTTP/2 client for the TLS config
+func NewTLSClient(config *tls.Config) (*http.Client, error) {
+	transport := &http.Transport{TLSClientConfig: config}
 	if err := http2.ConfigureTransport(transport); err != nil {
 		return nil, err
 	}
