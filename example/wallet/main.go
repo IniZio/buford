@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/RobotsAndPencils/buford/certificate"
-	"github.com/RobotsAndPencils/buford/pushpackage"
+	"github.com/inizio/buford/certificate"
+	"github.com/inizio/buford/pushpackage"
 )
 
 func loadWWDR(name string) (*x509.Certificate, error) {

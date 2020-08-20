@@ -10,10 +10,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/RobotsAndPencils/buford/certificate"
-	"github.com/RobotsAndPencils/buford/payload"
-	"github.com/RobotsAndPencils/buford/push"
-	"github.com/RobotsAndPencils/buford/pushpackage"
+	"github.com/inizio/buford/certificate"
+	"github.com/inizio/buford/payload"
+	"github.com/inizio/buford/push"
+	"github.com/inizio/buford/pushpackage"
 	"github.com/gorilla/mux"
 )
 

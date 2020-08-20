@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RobotsAndPencils/buford/push"
+	"github.com/inizio/buford/push"
 
 	"github.com/dgrijalva/jwt-go"
 )
